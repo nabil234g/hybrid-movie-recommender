@@ -256,13 +256,13 @@ Or use the **live deployment** directly — no installation required:
 
 <div align="center">
 
-| Name | Role |
-|---|---|
-| **Nabil Adel** | Collaborative Filtering · SVD Implementation · Hybrid Engine |
-| **Mariam Hany** | Content-Based Filtering · TF-IDF · Cosine Similarity |
-| **Manar Ali Mohammed** | Data Preprocessing · Evaluation Metrics |
-| **Tasneem Yosry** | Streamlit UI · Deployment |
-| **ANAS Mohamed** | Model Integration · Testing · Documentation |
+| Name |
+|---|
+| **Nabil Adel** |
+| **Mariam Hany** |
+| **Manar Ali Mohammed** |
+| **Tasneem Yosry** |
+| **ANAS Mohamed** |
 
 </div>
 
