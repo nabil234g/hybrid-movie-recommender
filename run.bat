@@ -18,8 +18,9 @@ if %errorlevel% neq 0 (
     exit /b
 )
 
-if not exist "venv\Scripts\streamlit.exe" (
-    echo  First-time setup in progress...
+venv\Scripts\python.exe -c "import surprise" >nul 2>&1
+if %errorlevel% neq 0 (
+    echo  Setting up environment...
     echo.
 
     if exist "venv\" (
@@ -33,13 +34,18 @@ if not exist "venv\Scripts\streamlit.exe" (
         exit /b
     )
 
-    echo  Installing packages (no compilation needed)...
+    echo  Installing scikit-surprise (pre-built, no compiler needed)...
     venv\Scripts\pip.exe install wheels\scikit_surprise-1.1.4-cp312-cp312-win_amd64.whl
-    venv\Scripts\pip.exe install streamlit pandas "numpy<2" scikit-learn
+    if %errorlevel% neq 0 (
+        echo  ERROR: Could not install scikit-surprise from local wheel.
+        pause
+        exit /b
+    )
 
-    if not exist "venv\Scripts\streamlit.exe" (
-        echo.
-        echo  ERROR: Installation failed. Check your internet connection and try again.
+    echo  Installing remaining packages...
+    venv\Scripts\pip.exe install streamlit pandas "numpy<2" scikit-learn
+    if %errorlevel% neq 0 (
+        echo  ERROR: Could not install packages. Check internet connection.
         pause
         exit /b
     )
