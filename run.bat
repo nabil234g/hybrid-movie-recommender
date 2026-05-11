@@ -8,10 +8,10 @@ echo   Hybrid Movie Recommendation System
 echo  ============================================
 echo.
 
-py -3.11 --version >nul 2>&1
+py -3.12 --version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo  Python 3.11 not found. Installing now...
-    winget install Python.Python.3.11 -e --accept-package-agreements --accept-source-agreements
+    echo  Python 3.12 not found. Installing now...
+    winget install Python.Python.3.12 -e --accept-package-agreements --accept-source-agreements
     echo.
     echo  Done. Close this window and double-click run.bat again.
     pause
@@ -19,23 +19,23 @@ if %errorlevel% neq 0 (
 )
 
 if not exist "venv\Scripts\streamlit.exe" (
-    echo  First-time setup. This takes 2-3 minutes...
+    echo  First-time setup in progress...
     echo.
 
     if exist "venv\" (
         rmdir /s /q venv
     )
 
-    py -3.11 -m venv venv
+    py -3.12 -m venv venv
     if %errorlevel% neq 0 (
-        echo.
         echo  ERROR: Could not create virtual environment.
         pause
         exit /b
     )
 
-    echo  Installing packages...
-    venv\Scripts\pip.exe install streamlit pandas "numpy<2" scikit-learn scikit-surprise
+    echo  Installing packages (no compilation needed)...
+    venv\Scripts\pip.exe install wheels\scikit_surprise-1.1.4-cp312-cp312-win_amd64.whl
+    venv\Scripts\pip.exe install streamlit pandas "numpy<2" scikit-learn
 
     if not exist "venv\Scripts\streamlit.exe" (
         echo.
