@@ -8,12 +8,12 @@ echo   Hybrid Movie Recommendation System
 echo  ============================================
 echo.
 
-where py >nul 2>&1
+py -3.11 --version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo  Python not found. Installing Python 3.12...
-    winget install Python.Python.3.12 -e --accept-package-agreements --accept-source-agreements
+    echo  Python 3.11 not found. Installing now...
+    winget install Python.Python.3.11 -e --accept-package-agreements --accept-source-agreements
     echo.
-    echo  Python installed. Close this window and double-click run.bat again.
+    echo  Done. Close this window and double-click run.bat again.
     pause
     exit /b
 )
@@ -26,28 +26,27 @@ if not exist "venv\Scripts\streamlit.exe" (
         rmdir /s /q venv
     )
 
-    py -3.12 -m venv venv
+    py -3.11 -m venv venv
     if %errorlevel% neq 0 (
         echo.
         echo  ERROR: Could not create virtual environment.
-        echo  Make sure Python 3.12 is installed by running: py -0
-        echo.
         pause
         exit /b
     )
 
     echo  Installing packages...
     venv\Scripts\pip.exe install streamlit pandas "numpy<2" scikit-learn scikit-surprise
-    if %errorlevel% neq 0 (
+
+    if not exist "venv\Scripts\streamlit.exe" (
         echo.
-        echo  ERROR: Package installation failed. Check your internet connection.
-        echo.
+        echo  ERROR: Installation failed. Check your internet connection and try again.
         pause
         exit /b
     )
 
     echo.
     echo  Setup complete.
+    echo.
 )
 
 echo  Opening app at http://localhost:8501
